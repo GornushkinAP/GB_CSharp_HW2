@@ -6,41 +6,55 @@
 // произведение: 5*9*1 = 45; 45 / 15 - делится НАЦЕЛО, число "интересное"
 // [591, 532, 189, 523, 333, 546, 527, 275, 456, 264]
 
-int[] numbers = new int[10];
-Random random = new Random();
 
-int count = 0;
-while (count < 10)
+
+//Скажу честно, этот код сгенерировала нейросеть, так как я не понял. 
+//Но обещаю разобраться =)
+// Так как мне кажется этот код кривой )))
+
+using System;
+
+class Program
+{
+    static void Main(string[] args)
     {
-    int number = random.Next(10, 1000);
-      if (IsInteresting(number))
+        int[] array = new int[10];
+        Random random = new Random();
+
+        int count = 0;
+        while (count < 10)
         {
-        numbers[count] = number;
-        count++;
+            int number = random.Next(10, 1000);
+
+            if (IsInterestingNumber(number))
+            {
+                array[count] = number;
+                count++;
+            }
         }
+
+        Console.WriteLine("Сгенерированный массив интересных чисел:");
+        foreach (int num in array)
+        {
+            Console.Write(num + " ");
+        }
+
+        Console.ReadLine();
     }
 
-Console.WriteLine("Сгенерированный массив:");
-foreach (int number in numbers)
+    static bool IsInterestingNumber(int number)
     {
-    Console.Write(number + " ");
-    }
+        int sum = 0;
+        int product = 1;
 
-Console.WriteLine();
-Console.ReadLine();
+        string numberString = number.ToString();
+        foreach (char digit in numberString)
+        {
+            int currentDigit = int.Parse(digit.ToString());
+            sum += currentDigit;
+            product *= currentDigit;
+        }
 
-static bool IsInteresting(int number)
-    {
-    int sum = 0;
-    int product = 1;
-    int tempNumber = number;
-while (tempNumber > 0)
-    {
-    int digit = tempNumber % 10;
-    sum += digit;
-    product *= digit;
-    tempNumber /= 10;
+        return (product % sum == 0);
     }
-return product % sum == 0;
-    }
-
+}
